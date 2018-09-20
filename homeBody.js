@@ -4,7 +4,6 @@ function getMovies(){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      //document.getElementById("bodyId").innerHTML = this.responseText;
       jsonObj = JSON.parse(this.responseText);
       console.log(jsonObj);
       var length = jsonObj.results.length;
@@ -13,17 +12,16 @@ function getMovies(){
         var imgTag = document.createElement('img');
         var innerDiv = document.createElement('div');
         
-        imgTag.alt = "1";
-        //imgTag.src = "https://image.tmdb.org/t/p/w500/adw6Lq9FiC9zjYEpOqfq03ituwp.jpg";
-        imgTag.src = "https://image.tmdb.org/t/p/w500"+jsonObj.results[i].poster_path;
-        imgTag.width = "600";
-        imgTag.height = "400";
+        imgTag.alt = i+1;
+        imgTag.src = imageUrl+jsonObj.results[i].poster_path;
+        imgTag.width = "400";
+        imgTag.height = "300";
         
         aTag.target = "_blank";
         aTag.appendChild(imgTag);
         
         innerDiv.className = "desc";
-        innerDiv.innerHTML = "Add a description of the image here";
+        innerDiv.innerHTML = jsonObj.results[i].title;
         
         var divs = document.createElement('div');
         divs.className = "gallery";
@@ -39,7 +37,7 @@ function getMovies(){
       }
     }
   };
-  xhttp.open("GET", "https://api.themoviedb.org/3/movie/now_playing?api_key=34c46d1fef129ad73f6f6a0bd839b017&language=en-US&page=1", true);
+  xhttp.open("GET", requestUrl1+key+requestUrl2, true);
   xhttp.send();
 }
 
